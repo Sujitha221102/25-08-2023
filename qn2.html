@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Authentication</title>
+    </head>
+    <body>
+        <div id="container">
+            <div id="register">
+                <h2>Register</h2>
+                <input type="text" id="regname" placeholder="Username">
+                <input type="password" id="regPassword" placeholder="Password">
+                <button id="registerButton">Register</button>
+            </div>
+            <div id="login">
+                <h2>Login</h2>
+                <input type="text" id="loginname" placeholder="Username">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button id="loginButton">Login</button>
+            </div>
+            <div id="content" style="display: none;">
+                <h2 id="loggedInname"></h2>
+                <button id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        const container = document.getElementById('container');
+        const reg = document.getElementById('register');
+        const login = document.getElementById('login');
+        const content = document.getElementById('content');
+        const loggedInname = document.getElementById('loggedInname');
+        login.addEventListener('click', loginUser);
+        content.addEventListener('click', logoutUser);
+        let currentUser = null;
+        reg.addEventListener('click', register);
+        function register() {
+            let regname = document.getElementById('regname')
+            let regName=regname.value;
+            let regPassword = document.getElementById('regPassword')
+            let regPwd=regPassword.value;
+            currentUser = { username: regName };
+            toggleViews();
+        }
+        function loginUser() {
+            const loginname = document.getElementById('loginname').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+
+            if (currentUser === null) {
+                currentUser = { username: loginname };
+                toggleViews();
+            }
+        }
+        function logoutUser() {
+            currentUser = null;
+            toggleViews();
+        }
+        function toggleViews() {
+            if (currentUser === null) {
+                reg.style.display = 'block';
+                login.style.display = 'block';
+                content.style.display = 'none';
+            } else {
+                reg.style.display = 'none';
+                login.style.display = 'none';
+                content.style.display = 'block';
+                loggedInname.textContent = currentUser.username;
+            }
+        }
+        toggleViews();
+    </script>
+    </html>

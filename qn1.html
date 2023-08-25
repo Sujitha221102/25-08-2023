@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #imageSize{
+            width: 200px;
+            height:150px;
+        }
+    </style>
+</head>
+<body>
+      <div id="img">
+        <div id="gallery"></div>
+      </div>    
+</body>
+<script>
+    let img = document.getElementById("img");
+    let gallery = document.getElementById("gallery");
+    const url = "https://fakestoreapi.com/products";
+    fetch(url)
+    .then((res) =>
+        res.json().then((response) => {
+        response.forEach((item) => {
+            let galleryImage = document.createElement("img");
+            galleryImage.src = item.image;
+            galleryImage.setAttribute("id","imageSize");
+            gallery.append(galleryImage);
+            img.appendChild(gallery);
+        });
+        })
+    )
+    .catch((error) => {
+        console.log("error", error);
+    });
+</script>
+</html>
